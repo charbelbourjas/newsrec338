@@ -244,9 +244,9 @@ def get_usertweets_articles(twitter_handle, news_sources, num_articles, num_retw
 
 	return res_json, user_tweets, articles_pooltweets
 	
-res = get_usertweets_articles("aasdfang", NEWS_SOURCES, CONSERVATIVE, CONSERVATIVE, POOL_METHOD)[0]
-with open('ex.txt', 'a') as f:
-	f.write(json.dumps(res))
+# res = get_usertweets_articles("aasdfang", NEWS_SOURCES, CONSERVATIVE, CONSERVATIVE, POOL_METHOD)[0]
+# with open('ex.txt', 'a') as f:
+# 	f.write(json.dumps(res))
 
 
 
