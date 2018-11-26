@@ -50,9 +50,10 @@
           <!-- <a href="https://www.twitter.com" class="waves-effect waves-light btn-large" id="button" type="button" name="button" target="_blank">
             Login With Twitter
           </a> -->
-          <form>
+          <form action="javascript:handleSubmit(handle.value)">
             Twitter Handle:
-            <input type="text">
+            <input type="text" name="handle" id="handle">
+            <input type="submit" value="Submit">
           </form>
         </div>
       </div>
@@ -69,7 +70,12 @@
       </div>
     </div>
 
+  <script>
+    function handleSubmit(twitter_handle) {
+      console.log(twitter_handle);
+    }
 
+  </script>
 
   </body>
 </html>
