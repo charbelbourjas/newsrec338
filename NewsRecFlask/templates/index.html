@@ -12,7 +12,8 @@
     <link rel="stylesheet" type="text/css" href="styles/materialize.css">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 
-    <script type="text/javascript" src="scripts/jquery-3.3.1.js"></script>
+<!-- <script type="text/javascript" src="scripts/jquery-3.3.1.js"></script> -->
+    <script src="../static/jquery-3.2.1.min.js"></script>
 
     <link rel="manifest" href="/manifest.json">
 
@@ -72,7 +73,9 @@
 
   <script>
     function handleSubmit(twitter_handle) {
-      console.log(twitter_handle);
+      $.post("/handleData", twitter_handle, function(data) {
+        console.log(data);
+      })
     }
 
   </script>
