@@ -244,7 +244,7 @@ def get_usertweets_articles(twitter_handle, news_sources, num_articles, num_retw
 	res_json = {}
 	res_json['user_tweets'] = user_tweets
 	res_json['article_pooltweets'] = articles_pooltweets
-
+	print('get_usertweets_articles done')
 	return res_json, user_tweets, articles_pooltweets
 	
 # res = get_usertweets_articles("aasdfang", NEWS_SOURCES, CONSERVATIVE, CONSERVATIVE, POOL_METHOD)[0]
