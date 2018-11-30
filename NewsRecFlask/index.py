@@ -10,6 +10,7 @@ from flask import Flask, redirect, url_for, render_template, request, session, j
 from flask_session import Session
 import python_twitter_test as ptt
 import Article_Recommender as ar
+import json
 
 app = Flask(__name__)
 SESSION_TYPE = 'filesystem'
@@ -20,19 +21,26 @@ Session(app)
 def index():
 	return render_template('index.html')
 
-@app.route('/results')
-def results():
-	return render_template('results.html')
-
-@app.route('/handleData', methods=['GET', 'POST'])
-def handleData():
+@app.route('/articles', methods=['GET', 'POST'])
+def articles():
 	if request.method=='POST':
 		#handle = jsonify(request['handle'])
 		handle = request.form.get('handle')
 		# session['handle'] = handle
 		print(handle)
 		data = ptt.get_usertweets_articles(handle, ptt.NEWS_SOURCES, ptt.CONSERVATIVE, ptt.CONSERVATIVE, ptt.POOL_METHOD)[0]
-		res = ar.recommend(data)
-		return render_template('results.html', result=str(res))
+		res = ar.recommend(data) # res is json
+		res = str(res).replace("'", '"')
+		res = json.loads(res)
+		print(res)
+		url0 = str(res['data'][0]['url'])
+		url1 = str(res['data'][1]['url'])
+		url2 = str(res['data'][2]['url'])
+		url3 = str(res['data'][3]['url'])
+		print(url0)
+		print(url1)
+		print(url2)
+		print(url3)
+		return render_template('article.html', url0=url0, url1=url1, url2=url2, url3=url3)
 	else:
 		return "Normal"

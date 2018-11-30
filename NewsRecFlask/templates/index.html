@@ -27,11 +27,11 @@
 			<h2 class="margin--none">NewsRec</h2>
 			<p class="text--light text--big">Hi! We're NewsRec. We help you find new news. Type in your Twitter Handle so we can learn more about you! (Make sure your account is set to 'public')</p>
 
-			<form>
+			<form action="{{ url_for('articles') }}" method="post">
 					Twitter Handle:
-					<input type="text">
-				</form>
-				<hr>
+					<input type="text" name="handle">
+			</form>
+			<hr>
 		</header>
 
 
