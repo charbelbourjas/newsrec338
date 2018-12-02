@@ -1019,9 +1019,10 @@ figure, audio, video {
       .grid__cell-offset--xxs-1-5 {
         margin-left: 20%; }
       .grid__cell--xxs-1-6 {
-        width: 16.6667%; }
+        width: 16%;
+        padding-left: 10000px; }
       .grid__cell-offset--xxs-1-6 {
-        margin-left: 16.6667%; } }
+        margin-left: 20%; } }
     @media only screen and (min-width: 480px) {
       .grid__cell--xs-1-1 {
         width: 100%; }
