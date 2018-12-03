@@ -39,7 +39,7 @@ DB_CONNECTION = None
 CURSOR = None
 SQL_TABLE = 'CREATE TABLE IF NOT EXISTS retweeter_data (url TEXT, user_tweets TEXT, create_date DATE);'
 INSERT_DATA = 'INSERT INTO retweeter_data VALUES (?,?,?)'
-PULL_DATA = 'SELECT DISTINCT url, user_tweets FROM retweeter_data ORDER BY create_date DESC LIMIT 200'
+PULL_DATA = 'SELECT url, user_tweets FROM retweeter_data ORDER BY create_date DESC LIMIT 200'
 
 	
 
@@ -353,7 +353,7 @@ def long_term_data_pull():
 
 
 
-long_term_data_pull()
+# long_term_data_pull()
 
 #example to get data out of file:
 '''
