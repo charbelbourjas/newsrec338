@@ -56,7 +56,7 @@ def get_keywords(urls):
 
 
 def recommend(data):
-	data = process_data2('ex.txt')
+	data = process_data2(data)
 	text_data = data[1]
 	url_data = data[2]
 	user_data = data[0]

@@ -10,7 +10,7 @@ from datetime import date, datetime
 import pygame, sys
 from pygame.locals import *
 import time
- 
+import Article_Recommender as AR
 
 # Consumer API Keys
 CONSUMER_KEY = 'OfJ4o1ElzOcGuwAtd94amZMnn' # (API key)
@@ -39,7 +39,7 @@ DB_CONNECTION = None
 CURSOR = None
 SQL_TABLE = 'CREATE TABLE IF NOT EXISTS retweeter_data (url TEXT, user_tweets TEXT, create_date DATE);'
 INSERT_DATA = 'INSERT INTO retweeter_data VALUES (?,?,?)'
-PULL_DATA = 'SELECT url, user_tweets FROM retweeter_data ORDER BY create_date DESC LIMIT 200'
+PULL_DATA = 'SELECT url, user_tweets FROM retweeter_data ORDER BY create_date DESC LIMIT 1000'
 
 	
 
@@ -351,7 +351,9 @@ def long_term_data_pull():
 				sys.exit()
 		pygame.event.pump()
 
-
+foo = AR.recommend(collect_tweets("aasdfang"))
+print(foo)
+# print(json.dumps(foo, indent=4))
 
 # long_term_data_pull()
 
