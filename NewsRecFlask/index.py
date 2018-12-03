@@ -8,7 +8,7 @@
 
 from flask import Flask, redirect, url_for, render_template, request, session, jsonify
 from flask_session import Session
-import python_twitter_test as ptt
+import db_handling as ptt
 import Article_Recommender as ar
 import json
 
@@ -28,7 +28,7 @@ def articles():
 		handle = request.form.get('handle')
 		# session['handle'] = handle
 		print(handle)
-		data = ptt.get_usertweets_articles(handle, ptt.NEWS_SOURCES, ptt.CONSERVATIVE, ptt.CONSERVATIVE, ptt.POOL_METHOD)[0]
+		data = ptt.collect_tweets(handle)
 		res = ar.recommend(data) # res is json
 		res = str(res).replace("'", '"')
 		res = json.loads(res)
