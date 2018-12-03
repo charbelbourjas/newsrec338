@@ -39,7 +39,7 @@ DB_CONNECTION = None
 CURSOR = None
 SQL_TABLE = 'CREATE TABLE IF NOT EXISTS retweeter_data (url TEXT, user_tweets TEXT, create_date DATE);'
 INSERT_DATA = 'INSERT INTO retweeter_data VALUES (?,?,?)'
-PULL_DATA = 'SELECT url, user_tweets FROM retweeter_data ORDER BY create_date DESC LIMIT 200'
+PULL_DATA = 'SELECT DISTINCT url, user_tweets FROM retweeter_data ORDER BY create_date DESC LIMIT 200'
 
 	
 
@@ -250,7 +250,8 @@ def get_usertweets_articles(twitter_handle, news_sources, num_articles, num_retw
 						consumer_secret=CONSUMER_SECRET,
 						access_token_key=TOKEN_KEY,
 						access_token_secret=TOKEN_SECRET,
-						tweet_mode='extended')
+						tweet_mode='extended',
+						sleep_on_rate_limit=True)
 
 	user_tweets = timeline(api, id_from_screen_name(api, twitter_handle), write_to_file=False)[0]
 	articles_pooltweets = format_converter(get_articles_pooltweets(api, news_sources, num_articles, num_retweeters, pool_method))[1]
@@ -259,12 +260,28 @@ def get_usertweets_articles(twitter_handle, news_sources, num_articles, num_retw
 	res_json['article_pooltweets'] = articles_pooltweets
 
 	return res_json, user_tweets, articles_pooltweets
-	
+
+
+def get_usertweets(twitter_handle, news_sources, num_articles, num_retweeters, pool_method):
+	api = twitter.Api(consumer_key=CONSUMER_KEY,
+						consumer_secret=CONSUMER_SECRET,
+						access_token_key=TOKEN_KEY,
+						access_token_secret=TOKEN_SECRET,
+						tweet_mode='extended',
+						sleep_on_rate_limit=True)
+
+	user_tweets = timeline(api, id_from_screen_name(api, twitter_handle), write_to_file=False)[0]
+	# articles_pooltweets = format_converter(get_articles_pooltweets(api, news_sources, num_articles, num_retweeters, pool_method))[1]
+	res_json = {}
+	res_json['user_tweets'] = user_tweets
+	# res_json['article_pooltweets'] = articles_pooltweets
+
+	return res_json	
 # res = get_usertweets_articles("aasdfang", NEWS_SOURCES, CONSERVATIVE, CONSERVATIVE, POOL_METHOD)[0]
 # with open('ex.txt', 'a') as f:
 # 	f.write(json.dumps(res))
 
-def collect_tweets(twitter_handle):
+def collect_tweets2(twitter_handle):
 	DB_CONNECTION = None
 	try:
 		DB_CONNECTION = sqlite3.connect(DB_NAME)
@@ -289,6 +306,32 @@ def collect_tweets(twitter_handle):
 	res_json[0]['article_pooltweets'] = new_articles_pooltweets
 	DB_CONNECTION.close()
 	return res_json[0]
+
+def collect_tweets(twitter_handle):
+	DB_CONNECTION = None
+	try:
+		DB_CONNECTION = sqlite3.connect(DB_NAME)
+	except Error as e:
+		print(e)
+	CURSOR = DB_CONNECTION.cursor()
+	CURSOR.execute(SQL_TABLE)
+	# today = date.today()
+	res_json = get_usertweets(twitter_handle, NEWS_SOURCES, MODERATE, MODERATE, POOL_METHOD)
+	# pulled_data = res_json[2]	
+	# tweet_data = list()
+	# for i in pulled_data:
+	# 	tweet_data.append((i['article_url'],i['person_tweets'],today))
+	# CURSOR.executemany(INSERT_DATA, tweet_data)
+	# DB_CONNECTION.commit()
+	new_articles_pooltweets = list()
+	for row in CURSOR.execute(PULL_DATA):
+		d = dict()
+		d['article_url'] = row[0]
+		d['person_tweets'] = row[1]
+		new_articles_pooltweets.append(d)
+	res_json['article_pooltweets'] = new_articles_pooltweets
+	DB_CONNECTION.close()
+	return res_json
 	
 def long_term_data_pull():
 	pygame.init()
@@ -310,7 +353,7 @@ def long_term_data_pull():
 
 
 
-# long_term_data_pull("aasdfang")
+long_term_data_pull()
 
 #example to get data out of file:
 '''
