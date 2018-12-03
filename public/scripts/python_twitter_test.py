@@ -4,7 +4,10 @@ import json
 import twitter
 import json
 import pprint
-
+import sqlite3
+from sqlite3 import Error
+ 
+ 
 
 # Consumer API Keys
 CONSUMER_KEY = 'OfJ4o1ElzOcGuwAtd94amZMnn' # (API key)
@@ -26,6 +29,20 @@ CONSERVATIVE = 10
 
 # if 0, get pool through retweets. if 1, get through quering the url
 POOL_METHOD = 1
+
+
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()
+
+
+
 
 def html_encode(text):
 	html_escape_table = {
