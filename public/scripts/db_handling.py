@@ -296,7 +296,8 @@ def long_term_data_pull():
 
 	while True:
 		try:
-			collect_tweets()
+			collect_tweets("aasdfang")
+			print('successful data pull')
 		except Error as e:
 			print('data pull error. now sleep...')
 			time.sleep(1000)	
@@ -309,7 +310,7 @@ def long_term_data_pull():
 
 
 
-# collect_tweets()
+# long_term_data_pull("aasdfang")
 
 #example to get data out of file:
 '''
