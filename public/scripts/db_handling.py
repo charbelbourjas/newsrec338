@@ -309,7 +309,7 @@ def long_term_data_pull():
 
 
 
-collect_tweets()
+# collect_tweets()
 
 #example to get data out of file:
 '''
