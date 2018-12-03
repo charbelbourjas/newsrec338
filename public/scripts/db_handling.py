@@ -351,8 +351,8 @@ def long_term_data_pull():
 				sys.exit()
 		pygame.event.pump()
 
-foo = AR.recommend(collect_tweets("aasdfang"))
-print(foo)
+# foo = AR.recommend(collect_tweets("aasdfang"))
+# print(foo)
 # print(json.dumps(foo, indent=4))
 
 # long_term_data_pull()
