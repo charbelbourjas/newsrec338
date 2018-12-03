@@ -12,7 +12,7 @@
 <!-- CSS -->
 
 <link rel="stylesheet" href="../static/css/styles.css">
-
+<script src="/static/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
@@ -27,9 +27,9 @@
 			<h2 class="margin--none">NewsRec</h2>
 			<p class="text--light text--big">Hi! We're NewsRec. We help you find new news. Type in your Twitter Handle so we can learn more about you! (Make sure your account is set to 'public')</p>
 
-			<form action="{{ url_for('articles') }}" method="post">
+			<form action="{{ url_for('articles') }}" method="post" id="theForm">
 					Twitter Handle:
-					<input type="text" name="handle">
+					<input type="text" name="handle" id="theText">
 			</form>
 			<hr>
 		</header>
@@ -40,32 +40,32 @@
 
 				<article class="grid__cell grid__cell--xxs-1-6">
 					<div class="mediabox mediabox--2-1">
-						<img src="../static/images/ellen.png" width="400" height="400" alt="Demo Image" />
+						<img src="../static/images/ellen.png" width="400" height="400" alt="Demo Image" name="TheEllenShow" onClick="sendData(this.name)"/>
 					</div>
 				</article>
 				<article class="grid__cell grid__cell--xxs-1-6">
 					<div class="mediabox mediabox--2-1">
-						<img src="../static/images/fallon.png" width="400" height="400" alt="Demo Image" />
+						<img src="../static/images/fallon.png" width="400" height="400" alt="Demo Image" name="jimmyfallon" onClick="sendData(this.name)"/>
 					</div>
 				</article>
 				<article class="grid__cell grid__cell--xxs-1-6">
 					<div class="mediabox mediabox--2-1">
-						<img src="../static/images/gates.png" width="400" height="400" alt="Demo Image" />
+						<img src="../static/images/gates.png" width="400" height="400" alt="Demo Image" name="billgates" onClick="sendData(this.name)"/>
 					</div>
 				</article>
 				<article class="grid__cell grid__cell--xxs-1-6">
 					<div class="mediabox mediabox--2-1">
-						<img src="../static/images/jb.png" width="400" height="400" alt="Demo Image" />
+						<img src="../static/images/jb.png" width="400" height="400" alt="Demo Image" name="justinbieber" onClick="sendData(this.name)"/>
 					</div>
 				</article>
 				<article class="grid__cell grid__cell--xxs-1-6">
 					<div class="mediabox mediabox--2-1">
-						<img src="../static/images/obama.png" width="400" height="400" alt="Demo Image" />
+						<img src="../static/images/obama.png" width="400" height="400" alt="Demo Image" name="BarackObama" onClick="sendData(this.name)"/>
 					</div>
 				</article>
 				<article class="grid__cell grid__cell--xxs-1-6">
 					<div class="mediabox mediabox--2-1">
-						<img src="../static/images/katyperry.png" width="400" height="400" alt="Demo Image" />
+						<img src="../static/images/katyperry.png" width="400" height="400" alt="Demo Image" name="katyperry" onClick="sendData(this.name)"/>
 					</div>
 				</article>
 
@@ -80,9 +80,14 @@
 
 
 <!-- JavaScript -->
-
-	<script src="js/functions.min.js"></script>
-
+	<script>
+		function sendData(twitter_handle) {
+			var text = document.getElementById("theText");
+			var form = document.getElementById("theForm");
+			text.value = twitter_handle;
+			form.submit();
+		}
+	</script>
 </body>
 
 </html>
