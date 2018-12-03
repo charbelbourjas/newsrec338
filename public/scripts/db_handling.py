@@ -264,7 +264,7 @@ def get_usertweets_articles(twitter_handle, news_sources, num_articles, num_retw
 # with open('ex.txt', 'a') as f:
 # 	f.write(json.dumps(res))
 
-def collect_tweets():
+def collect_tweets(twitter_handle):
 	DB_CONNECTION = None
 	try:
 		DB_CONNECTION = sqlite3.connect(DB_NAME)
@@ -273,7 +273,7 @@ def collect_tweets():
 	CURSOR = DB_CONNECTION.cursor()
 	CURSOR.execute(SQL_TABLE)
 	today = date.today()
-	res_json = get_usertweets_articles("aasdfang", NEWS_SOURCES, MODERATE, MODERATE, POOL_METHOD)
+	res_json = get_usertweets_articles(twitter_handle, NEWS_SOURCES, MODERATE, MODERATE, POOL_METHOD)
 	pulled_data = res_json[2]	
 	tweet_data = list()
 	for i in pulled_data:
