@@ -9,7 +9,7 @@ from newspaper import Article
 
 data = None
 user_data = None
-num_neighbors = 6
+num_neighbors = 20
 
 
 def process_data(filepath):
@@ -38,7 +38,24 @@ def get_matches(urls, indices):
 	for i in indices[0]:
 		if i!=0:
 			matches.append(urls[i-1])
-	return list(set(matches))
+	ls = list(set(matches))
+	
+	out = [x for x in ls if not x.startswith('https://nyti.ms/')]
+
+	final_out = list()
+	for i in out:
+		same = False
+		for j in final_out:
+			if i[0:11] == j[0:11]:
+				same = True
+		if not same:
+			final_out.append(i)
+		same = False
+
+	if len(final_out) >= 4:
+		return final_out
+	else:
+		return out
 
 
 def get_keywords(urls):
